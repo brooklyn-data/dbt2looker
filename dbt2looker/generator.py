@@ -249,6 +249,16 @@ def lookml_dimensions_from_model(model: models.DbtModel, adapter_type: models.Su
                 if (column.meta.dimension.value_format_name
                     and map_adapter_type_to_looker(adapter_type, column.data_type) == 'number')
                 else {}
+            ),
+            **(
+                {'view_label': column.meta.dimension.view_label or column.meta.view_label}
+                if column.meta.dimension.view_label or column.meta.view_label
+                else {}
+            ),
+            **(
+                {'group_label': column.meta.dimension.group_label or column.meta.group_label}
+                if column.meta.dimension.group_label or column.meta.group_label
+                else {}
             )
         }
         for column in model.columns.values()

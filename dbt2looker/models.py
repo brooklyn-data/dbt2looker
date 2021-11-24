@@ -94,7 +94,8 @@ class Dbt2LookerDimension(BaseModel):
     sql: Optional[str]
     description: Optional[str]
     value_format_name: Optional[LookerValueFormatName]
-
+    view_label: Optional[str]
+    group_label: Optional[str]
 
 class Dbt2LookerMeta(BaseModel):
     measures: Optional[Dict[str, Dbt2LookerMeasure]] = {}
@@ -102,7 +103,8 @@ class Dbt2LookerMeta(BaseModel):
     metrics: Optional[Dict[str, Dbt2LookerMeasure]] = {}
     metric: Optional[Dict[str, Dbt2LookerMeasure]] = {}
     dimension: Optional[Dbt2LookerDimension] = Dbt2LookerDimension()
-
+    view_label: Optional[str]
+    group_label: Optional[str]
 
 # Looker file types
 class LookViewFile(BaseModel):
@@ -145,7 +147,7 @@ class Dbt2LookerExploreJoin(BaseModel):
 
 class Dbt2LookerModelMeta(BaseModel):
     joins: Optional[List[Dbt2LookerExploreJoin]] = []
-
+    measures: Optional[Dict[str, Dbt2LookerDimension]] = {}
 
 class DbtModelMeta(Dbt2LookerModelMeta):
     pass
