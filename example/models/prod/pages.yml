@@ -28,10 +28,10 @@ models:
           # Optional - add measures based on this column
           measures:
             total_page_views:
-              view_label: # Optional - specify the view_label for the measure
+              view_label: "Page Views" # Optional - specify the view_label for the measure
               type: count        # any looker aggregate measure
             blog_views:
-              group_label: # Optional - specify the group_label for the measure
+              group_label: "Blog Info" # Optional - specify the group_label for the measure
               type: count
               value_format_name: decimal_0     # Optional - specify a format for the dimension
               filters:
