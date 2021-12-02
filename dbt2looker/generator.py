@@ -205,7 +205,7 @@ def lookml_date_time_dimension_group(column: models.DbtModelColumn, adapter_type
         'name': column.meta.dimension.name or column.name,
         'type': 'time',
         'sql': column.meta.dimension.sql or f'${{TABLE}}.{column.name}',
-        'description': column.meta.dimension.description or column.description,
+        'description': column.meta.dimension.description or column.description or "",
         'datatype': map_adapter_type_to_looker(adapter_type, column.data_type),
         'timeframes': ['raw', 'time', 'hour', 'date', 'week', 'month', 'quarter', 'year']
     }
