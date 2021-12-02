@@ -251,6 +251,11 @@ def lookml_dimensions_from_model(model: models.DbtModel, adapter_type: models.Su
                 else {}
             ),
             **(
+                {'label': column.meta.dimension.label or column.meta.label}
+                if column.meta.dimension.label or column.meta.label
+                else {}
+            ),
+            **(
                 {'view_label': column.meta.dimension.view_label or column.meta.view_label}
                 if column.meta.dimension.view_label or column.meta.view_label
                 else {}

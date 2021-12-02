@@ -94,6 +94,7 @@ class Dbt2LookerDimension(BaseModel):
     sql: Optional[str]
     description: Optional[str]
     value_format_name: Optional[LookerValueFormatName]
+    label: Optional[str]
     view_label: Optional[str]
     group_label: Optional[str]
 
@@ -103,6 +104,7 @@ class Dbt2LookerMeta(BaseModel):
     metrics: Optional[Dict[str, Dbt2LookerMeasure]] = {}
     metric: Optional[Dict[str, Dbt2LookerMeasure]] = {}
     dimension: Optional[Dbt2LookerDimension] = Dbt2LookerDimension()
+    label: Optional[str]
     view_label: Optional[str]
     group_label: Optional[str]
 
