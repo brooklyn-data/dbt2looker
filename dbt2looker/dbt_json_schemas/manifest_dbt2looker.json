@@ -260,7 +260,8 @@
             "median_distinct",
             "min",
             "sum",
-            "sum_distinct"
+            "sum_distinct",
+            "number"
           ]
         },
         "description": {

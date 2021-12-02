@@ -36,6 +36,7 @@ class LookerAggregateMeasures(str, Enum):
     # percentile_distinct = 'percentile_distinct'
     sum = 'sum'
     sum_distinct = 'sum_distinct'
+    number = 'number'
 
 
 class LookerJoinType(str, Enum):
