@@ -21,8 +21,9 @@ from . import generator
 MANIFEST_PATH = './manifest.json'
 DEFAULT_LOOKML_OUTPUT_DIR = './lookml'
 
-
-def get_manifest(prefix: str):
+# Skip manifest validation logic from:
+# https://github.com/lightdash/dbt2looker/pull/42/commits/c1e5a8ac69efe1893a39bf0d515e2224bca1ba08
+def get_manifest(prefix: str, skip_manifest_validation: bool):
     manifest_path = os.path.join(prefix, 'manifest.json')
     try:
         with open(manifest_path, 'r') as f:
@@ -32,6 +33,13 @@ def get_manifest(prefix: str):
         raise SystemExit('Failed')
     parser.validate_manifest(raw_manifest)
     logging.debug(f'Detected valid manifest at {manifest_path}')
+
+    if skip_manifest_validation:
+        logging.debug(f'Detected manifest at {manifest_path}')
+    else:
+        parser.validate_manifest(raw_manifest)
+        logging.debug(f'Detected valid manifest at {manifest_path}')
+
     return raw_manifest
 
 
@@ -97,6 +105,12 @@ def run():
         default=DEFAULT_LOOKML_OUTPUT_DIR,
         type=str,
     )
+    argparser.add_argument(
+        '--skip-manifest-validation',
+        help='Skips dbt manifest schema validation',
+        default=False,
+        action='store_true'
+    )
     args = argparser.parse_args()
     logging.basicConfig(
         level=getattr(logging, args.log_level),
@@ -105,7 +119,7 @@ def run():
     )
 
     # Load raw manifest file
-    raw_manifest = get_manifest(prefix=args.target_dir)
+    raw_manifest = get_manifest(prefix=args.target_dir, skip_manifest_validation=args.skip_manifest_validation)
     raw_catalog = get_catalog(prefix=args.target_dir)
     raw_config = get_dbt_project_config(prefix=args.project_dir)
 
