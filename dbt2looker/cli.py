@@ -31,8 +31,6 @@ def get_manifest(prefix: str, skip_manifest_validation: bool):
     except FileNotFoundError as e:
         logging.error(f'Could not find manifest file at {manifest_path}. Use --target-dir to change the search path for the manifest.json file.')
         raise SystemExit('Failed')
-    parser.validate_manifest(raw_manifest)
-    logging.debug(f'Detected valid manifest at {manifest_path}')
 
     if skip_manifest_validation:
         logging.debug(f'Detected manifest at {manifest_path}')
